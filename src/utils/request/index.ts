@@ -29,11 +29,14 @@ class AxiosRequest {
 const green = (str: string) => chalk.green(str);
 const red = (str: string) => chalk.red(str);
 
-const handleResponse = () => {
+/**
+ * @param path 文件处理路径, 建议赋值 __dirname
+ */
+const handleResponse = (path: string) => {
   return (target: any, name: any, descriptor: any) => {
     const functionName = target.constructor.name;
     let value = async function (...args: any[]) {
-      const info = `${functionName}服务 ${name}方法`;
+      const info = `${path}: ${functionName}服务 ${name}方法`;
       let data;
       try {
         // 获取到调用方法的 this
@@ -57,7 +60,9 @@ const handleResponse = () => {
     }
   }
 }
-
+/**
+ * @param path 文件处理路径
+ */
 function handleClass(path: string) {
   return (t: any) => {
     const proto = t.prototype;

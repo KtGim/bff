@@ -1,4 +1,3 @@
-import { Context } from 'koa';
 import IndexService from 'src/service/tenant/indexService';
 
 type IndexControllerType = {
