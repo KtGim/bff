@@ -17,7 +17,9 @@ class Index {
   @GET()
   async index(ctx: Context) {
     // console.log(ctx.state.container.cradle)
-    await this.indexController.actionData(ctx);
+    const result = await this.indexController.actionData();
+    const result1 = await this.indexController.errorDemo();
+    this.initResponse(ctx, result)
   }
 
   @route("/second")
@@ -25,6 +27,14 @@ class Index {
   async second(ctx: Context) {
     // console.log(ctx.state.container.cradle)
     await this.secondController.actionData(ctx);
+  }
+
+  private initResponse(ctx: Context, data: any, ) {
+    ctx.body = {
+      data,
+      status: 200,
+      success: true,
+    }
   }
 }
 

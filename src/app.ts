@@ -5,6 +5,8 @@ import server from 'koa-static';
 import { createContainer, Lifetime } from 'awilix';
 import { scopePerRequest, loadControllers } from 'awilix-koa';
 
+import redis from './utils/redis'
+
 const app = new Koa();
 const container = createContainer();
 
@@ -15,6 +17,8 @@ const container = createContainer();
 //   // er is an error object or null.
 //   console.log(files);
 // })
+
+redis.setKey('ENV', 'https://rc-api.creams.io')
 
 container.loadModules(['./service/**/*.js'], {
   cwd: __dirname,

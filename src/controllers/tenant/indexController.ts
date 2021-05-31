@@ -13,12 +13,16 @@ class IndexController {
     this.indexService = indexService;
   }
 
-  async actionData(ctx: Context) {
+  async actionData() {
+    // console.log(ctx, process.env);
     // 数据处理
-    const result = await this.indexService.getData();
-    ctx.body = {
-      result
-    }
+    return await this.indexService.getData();
+  }
+
+  async errorDemo() {
+    // console.log(ctx, process.env);
+    // 数据处理
+    return await this.indexService.error();
   }
 }
 
