@@ -33,11 +33,12 @@ const handleResponse = () => {
   return (target: any, name: any, descriptor: any) => {
     const functionName = target.constructor.name;
     let value = async function (...args: any[]) {
+      const info = `${functionName}服务 ${name}方法`;
       let data;
       try {
         // 获取到调用方法的 this
         data = await descriptor.value.apply(target.constructor(), args);
-        infoLog.logOut && infoLog.logOut(`${green('Success')} Time:`, new Date(), `${green(`${functionName} -> ${name}`)} 请求成功`)
+        infoLog.logOut && infoLog.logOut(`${green('Success')} Time:`, new Date(), `${green(info)}`)
       } catch(err) {
         // console.log(err);
         data = {
@@ -46,7 +47,7 @@ const handleResponse = () => {
           errorMsg: err,
           success: false
         }
-        errorLog.logOut && errorLog.logOut(`${red('Fail')} Time:`, new Date(), `${red(`${functionName} -> ${name}`)} 请求失败`)
+        errorLog.logOut && errorLog.logOut(`${red('Fail')} Time:`, new Date(), `${red(info)}`)
       }
       return data
     }
@@ -57,9 +58,44 @@ const handleResponse = () => {
   }
 }
 
+function handleClass(path: string) {
+  return (t: any) => {
+    const proto = t.prototype;
+    const fName = proto.constructor.name;
+    Object.keys(proto).forEach(prop => {
+      if (prop !== 'constructor' && proto.hasOwnProperty(prop)) {
+        const value = Reflect.get(proto, prop);
+        const info = `${path}: ${fName}服务 ${prop}方法`;
+        if (typeof value === 'function') {
+          let val = async function(...params: any[]) {
+            let data;
+            try {
+              data = await value.apply(proto.constructor(), params);
+              infoLog.logOut && infoLog.logOut(`${green('Success')} Time:`, new Date(), `${green(info)}`)
+            } catch(e) {
+              data = {
+                data: null,
+                status: 500,
+                errorMsg: e.message,
+                success: false
+              }
+              errorLog.logOut && errorLog.logOut(`${red('Fail')} Time:`, new Date(), `${red(info)}`)
+            }
+            return data;
+          }
+          Reflect.set(proto, prop, val, proto)
+        } else {
+          Reflect.set(proto, prop, value, proto)
+        }
+      }
+    })
+  };
+}
+
+
 export {
-  handleResponse
+  handleResponse,
+  handleClass
 };
 
 export default AxiosRequest;
-

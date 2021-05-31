@@ -1,17 +1,18 @@
 import BaseService from '../index';
-import { handleResponse } from '../../utils/request';
+import { handleClass, handleResponse } from '../../utils/request';
+@handleClass(__dirname)
 class IndexService extends BaseService {
   constructor() {
     super()
   }
 
-  @handleResponse()
+  // @handleResponse()
   async getData() {
     const res = await this.commonRequest.get('/wechat/user/otCj31fU0ob5IE9nqbLgpJhwF7BI?customerId=1001');
     return res.data;
   }
 
-  @handleResponse()
+  // @handleResponse()
   async error() {
     throw new Error("手动抛错2");
   }
