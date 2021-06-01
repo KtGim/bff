@@ -1,4 +1,4 @@
-import IndexService from 'src/service/tenant/indexService';
+import IndexService from '@/service/tenant/indexService';
 
 type IndexControllerType = {
   tenantIndexService: IndexService

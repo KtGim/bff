@@ -1,5 +1,5 @@
 import { Context } from 'koa';
-import SecondService from '../../service/tenant/secondService';
+import SecondService from '@/service/tenant/secondService';
 
 type SecondControllerType = {
   tenantSecondService: SecondService

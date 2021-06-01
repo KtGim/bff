@@ -1,4 +1,4 @@
-import IndexService from 'src/service/auth/indexService';
+import IndexService from '@/service/auth/indexService';
 
 type IndexControllerType = {
   authIndexService: IndexService

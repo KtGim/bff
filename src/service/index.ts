@@ -1,6 +1,6 @@
 import Request from '../utils/request';
 import { AxiosInstance, AxiosRequestConfig } from 'axios';
-import redis from '../utils/redis';
+import redis from '@/utils/redis';
 
 type RequestType = 'COMMON';
 

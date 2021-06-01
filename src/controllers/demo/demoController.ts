@@ -1,7 +1,7 @@
 import { Context } from 'koa';
 import { route, GET } from 'awilix-koa';
 import Index from './index';
-import IndexService from 'src/service/tenant/indexService';
+import IndexService from '@/service/tenant/indexService';
 
 type IndexControllerType = {
   indexService: IndexService
