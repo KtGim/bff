@@ -7,7 +7,9 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "serve": "tsc --watch",
     "start": "tsc && node dist/app.js",
-    "debug": "ts-node ./src/app.ts"
+    "debug": "ts-node src/app.ts",
+    "debug1": "node --loader ts-node/esm src/app.ts ",
+    "start:ts": "nodemon --watch src -e ts --exec ts-node src/app.ts"
   },
   "repository": {
     "type": "git",

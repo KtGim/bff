@@ -1,27 +1,27 @@
 import IndexService from 'src/service/tenant/indexService';
 
 type IndexControllerType = {
-  indexService: IndexService
+  tenantIndexService: IndexService
 }
 
 class IndexController {
-  private indexService: IndexService;
+  private tenantIndexService: IndexService;
   constructor({
-    indexService
+    tenantIndexService
   }: IndexControllerType) {
-    this.indexService = indexService;
+    this.tenantIndexService = tenantIndexService;
   }
 
   async actionData() {
-    // console.log(ctx, process.env);
+    // console.log(this.indexService);
     // 数据处理
-    return await this.indexService.getData();
+    return await this.tenantIndexService.getData();
   }
 
   async errorDemo() {
     // console.log(ctx, process.env);
     // 数据处理
-    return await this.indexService.error();
+    return await this.tenantIndexService.error();
   }
 }
 

@@ -6,6 +6,7 @@ import { createContainer, Lifetime } from 'awilix';
 import { scopePerRequest, loadControllers } from 'awilix-koa';
 
 import redis from './utils/redis'
+import { firstCharUppercase } from './utils/utils';
 
 const app = new Koa();
 const container = createContainer();
@@ -22,14 +23,19 @@ redis.setKey('ENV', 'https://rc-api.creams.io')
 
 container.loadModules(['./service/**/*.js'], {
   cwd: __dirname,
-  formatName: 'camelCase',
+  formatName: (name: string, descriptor: any) => {
+    const splat = descriptor.path.split('/')
+    const namespace = splat[splat.length - 2] // `repository` or `service`
+    name = firstCharUppercase(name);
+    return `${namespace}${name}`
+  },
   // 生命周期每次都创建实例
   resolverOptions: {
     lifetime: Lifetime.SCOPED,
   }
 })
 
-app.use(server(__dirname + '../dist'));
+// app.use(server(__dirname + '../dist'));
 // app.use(historyApiFallback({ index: '/', whiteList: ['/api'] }));
 app.use(scopePerRequest(container));
 // app.use(loadControllers('./controllers/*.js', { cwd: __dirname }));

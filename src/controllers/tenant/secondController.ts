@@ -2,20 +2,20 @@ import { Context } from 'koa';
 import SecondService from '../../service/tenant/secondService';
 
 type SecondControllerType = {
-  secondService: SecondService
+  tenantSecondService: SecondService
 }
 
 class SecondController {
-  private secondService: SecondService;
+  private tenantSecondService: SecondService;
   constructor({
-    secondService
+    tenantSecondService
   }: SecondControllerType) {
-    this.secondService = secondService;
+    this.tenantSecondService = tenantSecondService;
   }
 
   async actionData(ctx: Context) {
     // 数据处理
-    const result = await this.secondService.getData();
+    const result = await this.tenantSecondService.getData();
     ctx.body = {
       result
     }

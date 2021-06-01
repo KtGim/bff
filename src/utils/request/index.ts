@@ -43,7 +43,6 @@ const handleResponse = (path: string) => {
         data = await descriptor.value.apply(target.constructor(), args);
         infoLog.logOut && infoLog.logOut(`${green('Success')} Time:`, new Date(), `${green(info)}`)
       } catch(err) {
-        // console.log(err);
         data = {
           data: null,
           status: 500,
@@ -51,6 +50,7 @@ const handleResponse = (path: string) => {
           success: false
         }
         errorLog.logOut && errorLog.logOut(`${red('Fail')} Time:`, new Date(), `${red(info)}`)
+        console.log(err);
       }
       return data
     }
