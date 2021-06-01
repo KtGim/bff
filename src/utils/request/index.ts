@@ -40,7 +40,7 @@ const handleResponse = (path: string) => {
       let data;
       try {
         // 获取到调用方法的 this
-        data = await descriptor.value.apply(target.constructor(), args);
+        data = await descriptor.value.apply(new target.constructor(), args);
         infoLog.logOut && infoLog.logOut(`${green('Success')} Time:`, new Date(), `${green(info)}`)
       } catch(err) {
         data = {
@@ -75,7 +75,7 @@ function handleClass(path: string) {
           let val = async function(...params: any[]) {
             let data;
             try {
-              data = await value.apply(proto.constructor(), params);
+              data = await value.apply(new proto.constructor(), params);
               infoLog.logOut && infoLog.logOut(`${green('Success')} Time:`, new Date(), `${green(info)}`)
             } catch(e) {
               data = {
