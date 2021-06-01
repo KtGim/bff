@@ -5,11 +5,8 @@
   "main": "src/app.ts",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "serve": "tsc --watch",
-    "start": "tsc && node dist/app.js",
-    "debug": "ts-node src/app.ts",
-    "debug1": "node --loader ts-node/esm src/app.ts ",
-    "start:ts": "nodemon --watch src -e ts --exec ts-node src/app.ts"
+    "serve": "ts-node ",
+    "start": "nodemon --watch src -e ts --exec \"ts-node -C ttypescript ./src/app.ts\""
   },
   "repository": {
     "type": "git",
