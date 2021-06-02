@@ -7,7 +7,8 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "serve": "ts-node ",
     "start": "nodemon --watch src -e ts --exec \"ts-node -C ttypescript ./src/app.ts\"",
-    "start2": "nodemon --watch src -e ts --exec \"ts-node -r tsconfig-paths/register ./src/app.ts\""
+    "start2": "nodemon --watch src -e ts --exec \"ts-node -r tsconfig-paths/register ./src/app.ts\"",
+    "pmm": "pm2 start ecosystem.config.js --env development --no-daemon"
   },
   "repository": {
     "type": "git",
