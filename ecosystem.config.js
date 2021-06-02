@@ -23,7 +23,7 @@ module.exports = {
       PM2_NODE_ENV: "env_development",
     },
     exec_mode : 'cluster',        // Allows your app to be clustered
-    instances : 4,          
+    instances : 1,          
   }],
 
   // deploy : {
