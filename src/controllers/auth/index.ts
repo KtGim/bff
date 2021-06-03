@@ -14,13 +14,12 @@ class Index {
   @route("/token")
   @GET()
   async index(ctx: Context) {
-    // console.log(ctx.state.container.cradle)
     const result = await this.authController.login();
-    this.initResponse(ctx, result)
+    return this.initResponse(ctx, result)
   }
 
   private initResponse(ctx: Context, data: any, ) {
-    ctx.body = {
+    return ctx.body = {
       data,
       status: 200,
       success: true,
