@@ -13,7 +13,6 @@ class IndexController {
   }
 
   async actionData() {
-    // console.log(this.indexService);
     // 数据处理
     return await this.tenantIndexService.getData();
   }

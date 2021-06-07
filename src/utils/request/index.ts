@@ -1,14 +1,16 @@
 import { AxiosRequestConfig, AxiosResponse } from 'axios';
 import axios from 'axios';
 import redis from '../redis';
+import { infoLog } from '../Logger';
+import { yellow } from 'chalk';
 
 axios.interceptors.request.use((config) => {
-  config.url = `${redis.getKey('ENV')}${config.url}`
-  // console.log(config.headers);
+  const url = `${redis.getKey('ENV')}${config.url}`;
+  config.url = url;
+  infoLog.logOut && infoLog.logOut(`请求接口:`, new Date(), `${yellow(url)}`)
   return config;
 })
 axios.interceptors.response.use((config) => {
-  console.log(config.headers);
   return config;
 })
 

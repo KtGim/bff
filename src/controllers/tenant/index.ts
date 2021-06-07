@@ -18,27 +18,19 @@ class Index extends BaseController {
   @route("/index")
   @GET()
   async index(ctx: Context) {
-    // console.log(ctx.state.container.cradle)
-    const res =  await this.indexController.actionData();
-    console.log(res.data)
-    ctx.body = {
-      data: res.data,
-      status: 200,
-    }
-    // Promise.all([
-     
-    //   // await this.indexController.errorDemo()
-    // ]).then((res) => {
+    Promise.all([
+      // await this.indexController.errorDemo()
+    ]).then((res) => {
       
-      // const [a1, a2] = res;
-      // const errors: string[] = [];
+      const [a1, a2] = res;
+      const errors: string[] = [];
       
-      // if (this.validateStatus(res).success) {
-      //   this.initResponse(ctx, '成功', true)
-      // } else {
-      //   this.initResponse(ctx, null, false, '请求失败')
-      // }
-    // })
+      if (this.validateStatus(res).success) {
+        this.initResponse(ctx, '成功', true)
+      } else {
+        this.initResponse(ctx, null, false, '请求失败')
+      }
+    })
     // const {data: result, status} = await this.indexController.actionData();
     // const res = await this.indexController.errorDemo();
     // this.initResponse(ctx, res.data, error)

@@ -2,12 +2,6 @@ import * as redis from 'redis';
 import { RedisClient, Callback } from 'redis';
 import { CacheKey } from './types';
 
-// const RClient = redis.createClient();
-
-// RClient.on("error", (error) => {
-//   console.error(error);
-// });
-
 class RClient {
   private instance?: RedisClient;
   private cache: {[key in CacheKey]?: any}
