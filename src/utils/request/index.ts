@@ -4,9 +4,11 @@ import redis from '../redis';
 
 axios.interceptors.request.use((config) => {
   config.url = `${redis.getKey('ENV')}${config.url}`
+  // console.log(config.headers);
   return config;
 })
 axios.interceptors.response.use((config) => {
+  console.log(config.headers);
   return config;
 })
 
@@ -17,10 +19,15 @@ interface RequestOptions extends AxiosRequestConfig {
 class AxiosInstances {
   request<T>(url: string, opt: RequestOptions): Promise<AxiosResponse<T>>  {
     const {
-      method
+      method,
+      headers
     } = opt;
     const lowerMethodCase: methodType = method.toLowerCase() as methodType;
-    return axios[lowerMethodCase]<T>(url, opt);
+    return axios[lowerMethodCase]<T>(url, {
+      url,
+      method: lowerMethodCase,
+      headers,
+    });
   }
 }
 

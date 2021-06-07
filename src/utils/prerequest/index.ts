@@ -1,8 +1,17 @@
+import { AxiosResponse } from 'axios';
 import chalk from 'chalk';
 import { errorLog, infoLog } from '../Logger'
 
 const green = (str: string) => chalk.green(str);
 const red = (str: string) => chalk.red(str);
+
+interface AxiosResponseType<T = any> extends AxiosResponse<T> {
+  errorMsg?: string;
+  data: any;
+  success: boolean;
+}
+
+export interface CustomerResponseType<T = any> extends Partial<AxiosResponseType<T>> {}
 
 /**
  * @param path 文件处理路径, 建议赋值 __dirname
@@ -10,18 +19,16 @@ const red = (str: string) => chalk.red(str);
 const handleResponse = (path: string) => {
   return (target: any, name: any, descriptor: any) => {
     const functionName = target.constructor.name;
-    let value = async function (...args: any[]) {
+    let value = async function<T> (...args: any[]): Promise<CustomerResponseType<T>> {
       const info = `${path}: ${functionName}服务 ${name}方法`;
-      let data;
+      let data: CustomerResponseType<T>;
       try {
         // 获取到调用方法的 this
         data = await descriptor.value.apply(new target.constructor(), args);
         infoLog.logOut && infoLog.logOut(`${green('Success')} Time:`, new Date(), `${green(info)}`)
       } catch(err) {
         data = {
-          data: null,
-          status: 500,
-          errorMsg: err,
+          errorMsg: err.message,
           success: false
         }
         errorLog.logOut && errorLog.logOut(`${red('Fail')} Time:`, new Date(), `${red(info)}`)
@@ -59,7 +66,8 @@ function handleClass(path: string) {
                 errorMsg: e.message,
                 success: false
               }
-              errorLog.logOut && errorLog.logOut(`${red('Fail')} Time:`, new Date(), `${red(info)}`)
+              errorLog.logOut && errorLog.logOut(`${red('Fail')} Time:`, new Date(), `${red(info)}\n`)
+              // console.log(e)
             }
             return data;
           }

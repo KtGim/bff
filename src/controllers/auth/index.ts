@@ -18,6 +18,13 @@ class Index {
     return this.initResponse(ctx, result)
   }
 
+  @route("/user")
+  @GET()
+  async user(ctx: Context) {
+    const result = await this.authController.getUser(ctx);
+    return this.initResponse(ctx, result)
+  }
+
   private initResponse(ctx: Context, data: any, ) {
     return ctx.body = {
       data,
