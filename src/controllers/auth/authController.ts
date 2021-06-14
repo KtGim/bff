@@ -1,5 +1,4 @@
 import IndexService from '@/service/auth/indexService';
-import { Context } from 'koa';
 
 type IndexControllerType = {
   authIndexService: IndexService
@@ -15,11 +14,6 @@ class AuthController {
 
   async login() {
     return await this.authIndexService.login();
-  }
-
-  async getUser(ctx: Context) {
-    const res = await this.authIndexService.getUser(ctx);
-    return res.data;
   }
 }
 

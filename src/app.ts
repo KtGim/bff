@@ -1,17 +1,14 @@
-import Koa from 'koa';
+import Koa, { Context } from 'koa';
 import server from 'koa-static';
-
 // import glob from 'glob';
 import { createContainer, Lifetime } from 'awilix';
 import { scopePerRequest, loadControllers } from 'awilix-koa';
 
-import redis from './utils/redis'
-import { firstCharUppercase } from './utils/utils';
+import { firstCharUppercase } from '@/utils/utils';
 
 const app = new Koa();
-const container = createContainer();
 
-redis.setKey('ENV', 'https://rc-app.creams.io/api/web');
+const container = createContainer();
 
 // process.env.NODE_TLS_REJECT_UNAUTHORIZED = '0';
 
@@ -36,7 +33,6 @@ container.loadModules(['./service/**/*.ts'], {
 app.use(server(__dirname + '../dist'));
 // app.use(historyApiFallback({ index: '/', whiteList: ['/api'] }));
 app.use(scopePerRequest(container));
-// app.use(loadControllers('./controllers/*.js', { cwd: __dirname }));
 app.use(loadControllers('./controllers/**/*.ts', { cwd: __dirname }));
 
 app.listen(8080, () => {

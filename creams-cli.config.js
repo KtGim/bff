@@ -4,7 +4,7 @@
  */
 
 const fs = require('fs');
-const branchEnv = 'notice';
+const branchEnv = 'rc';
 
 const baseUrl = `https://${branchEnv}-api.creams.io/`;
 

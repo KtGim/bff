@@ -1,8 +1,6 @@
 import BaseService from '../index';
-import { handleClass, handleResponse } from '@/utils/prerequest';
-import { getUsersInfo } from '@/apis/tenant/wechat-pay'
-import { Context } from 'koa';
-@handleClass(__dirname) // 包裹方法的错误处理方式
+import { handleResponse } from '@/utils/prerequest';
+// @handleClass(__dirname) // 包裹方法的错误处理方式
 class IndexService extends BaseService {
 
   constructor() {
@@ -14,15 +12,6 @@ class IndexService extends BaseService {
     return 
   }
 
-  @handleResponse(__dirname) //包裹方法的错误处理方式
-  async getUser(ctx: Context) {
-    return await getUsersInfo({
-      query: {},
-      opt: {
-        headers: ctx.headers,
-      }
-    })
-  }
 }
 
 export default IndexService;
